@@ -1,26 +1,69 @@
 import React from 'react';
-import { Image } from 'react-native';
+import {
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  View,
+  ScrollView,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 import logoImg from '../../assets/logo.png';
-
-import { Container, Title } from './styles';
+import {
+  Container,
+  Title,
+  ForgotPassword,
+  ForgotPasswordText,
+  CreateAccountButton,
+  CreateAccountButtonText,
+} from './styles';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 const SignIn: React.FC = () => {
   return (
-    <Container>
-      <Image source={logoImg} />
-      <Title>Faça seu logon</Title>
-      <Input name="email" icon="mail" placeholder="E-mail" />
-      <Input name="password" icon="lock" placeholder="Senha" />
-      <Button
+    <>
+      <KeyboardAvoidingView
+        enabled
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <ScrollView
+          contentContainerStyle={{ flex: 1 }}
+          keyboardShouldPersistTaps="handled"
+        >
+          <Container>
+            <Image source={logoImg} />
+            <View>
+              <Title>Faça seu logon</Title>
+            </View>
+            <Input name="email" icon="mail" placeholder="E-mail" />
+            <Input name="password" icon="lock" placeholder="Senha" />
+            <Button
+              onPress={() => {
+                console.log('Pressed');
+              }}
+            >
+              Entrar
+            </Button>
+            <ForgotPassword
+              onPress={() => {
+                console.log('Pressed Forgot');
+              }}
+            >
+              <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
+            </ForgotPassword>
+          </Container>
+        </ScrollView>
+      </KeyboardAvoidingView>
+      <CreateAccountButton
         onPress={() => {
-          console.log('Pressed');
+          console.log('Pressed Create');
         }}
       >
-        Entrar
-      </Button>
-    </Container>
+        <Icon name="log-in" size={20} color="#ff9000" />
+        <CreateAccountButtonText>Criar uma conta</CreateAccountButtonText>
+      </CreateAccountButton>
+    </>
   );
 };
 
